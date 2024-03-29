@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option java_package = "com.example.grpc";
+option java_outer_classname = "HospitalProto";
+
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package model;
+
+// Define the messages for Hospital and Patient entities
+message Hospital {
+    // Unique ID for the hospital
+    int32 id = 1;
+    // Name of the hospital
+    string name = 2;
+    // Address of the hospital
+    string address = 3;
+    // Any other relevant fields for the hospital
+    // ...
+}
+
+// message Patient {
+//     // Unique ID for the patient
+//     int32 id = 1;
+//     // Name of the patient
+//     string name = 2;
+//     // Age of the patient
+//     int32 age = 3;
+//     // Any other relevant fields for the patient
+//     // ...
+// }
+
+// Define the service for hospital operations
+service HospitalService {
+    rpc FakeOp(google.protobuf.Int64Value) returns (google.protobuf.Int64Value);
+    // Operations for hospitals
+    rpc CreateHospital(Hospital) returns (Hospital);
+    // rpc ModifyHospital(Hospital) returns (Hospital);
+    // rpc DeleteHospital(google.protobuf.Int64Value) returns (google.protobuf.Empty);
+
+    // // Operations for patients
+    // rpc CreatePatient(Patient) returns (Patient);
+    // rpc ModifyPatient(Patient) returns (Patient);
+    // rpc DeletePatient(google.protobuf.Int64Value) returns (google.protobuf.Empty);
+
+    // // Operation to register a patient in a hospital
+    // rpc RegisterPatientInHospital(RegisterPatientRequest) returns (google.protobuf.Empty);
+
+    // // Operations to list patients and hospitals
+    // rpc ListPatientsInHospital(google.protobuf.Int64Value) returns (Patients);
+    // rpc ListHospitalsForPatient(google.protobuf.Int64Value) returns (Hospitals);
+}
+
+// // Request message to register a patient in a hospital
+// message RegisterPatientRequest {
+//     // ID of the patient
+//     int32 patient_id = 1;
+//     // ID of the hospital
+//     int32 hospital_id = 2;
+// }
+
+
+// message Patients {
+//     // List of patients in the hospital
+//     repeated Patient patients = 1;
+// }
+
+// message Hospitals {
+//     // List of hospitals where the patient is registered
+//     repeated Hospital hospitals = 1;
+// }
