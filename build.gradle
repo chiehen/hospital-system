@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.1.10'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id "com.google.protobuf" version "0.9.4"
+
 }
 
 group = 'com.example'
@@ -16,18 +17,19 @@ repositories {
 	mavenCentral()
 }
 
+// dependencyManagement {
+//     imports {
+//         mavenBom "io.grpc:grpc-bom:1.62.2"
+//     }
+// }
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  // implementation "io.grpc:grpc-netty:1.15.1"
-
   implementation 'net.devh:grpc-spring-boot-starter:3.0.0.RELEASE' exclude group: 'io.grpc', module: 'grpc-netty-shaded' // For both
-	// implementation 'net.devh:grpc-spring-boot-starter:3.0.0.RELEASE'
-	implementation 'com.google.protobuf:protobuf-java:3.6.1'
-  runtimeOnly 'io.grpc:grpc-netty-shaded:1.62.2'
-  implementation 'io.grpc:grpc-protobuf:1.62.2'
-  implementation 'io.grpc:grpc-stub:1.62.2'
-	// implementation 'io.grpc:grpc-stub:1.15.1'
-	// implementation 'io.grpc:grpc-protobuf:1.15.1'
+	implementation 'com.google.protobuf:protobuf-java:3.24.3'
+  runtimeOnly 'io.grpc:grpc-netty-shaded:1.60.1'
+  implementation 'io.grpc:grpc-protobuf:1.60.1'
+  implementation 'io.grpc:grpc-stub:1.60.1'
 	if (JavaVersion.current().isJava9Compatible()) {
     // Workaround for @javax.annotation.Generated
     // see: https://github.com/grpc/grpc-java/issues/3633
@@ -49,7 +51,7 @@ tasks.named('test') {
 protobuf {
   protoc {
     // The artifact spec for the Protobuf Compiler
-    artifact = 'com.google.protobuf:protoc:3.6.1:osx-x86_64'
+    artifact = 'com.google.protobuf:protoc:3.24.3:osx-x86_64'
   }
 
 
@@ -58,7 +60,7 @@ protobuf {
     // the identifier, which can be referred to in the "plugins"
     // container of the "generateProtoTasks" closure.
     grpc {
-      artifact = 'io.grpc:protoc-gen-grpc-java:1.62.2:osx-x86_64'
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.60.1:osx-x86_64'
     }
   }
   generateProtoTasks {
