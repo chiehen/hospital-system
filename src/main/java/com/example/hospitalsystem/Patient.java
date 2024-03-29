@@ -4,27 +4,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
-
 @Entity
 public class Patient {
 
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   private String firstName;
   private String lastName;
   private String sex;
   private int age;
-  
-  @ManyToMany(mappedBy = "registeredPatients")
+
+  @ManyToMany(mappedBy = "registeredPatients", fetch = FetchType.EAGER)
   Set<Hospital> registeredHospitals = new HashSet<>();;
 
-  protected Patient() {}
+  protected Patient() {
+  }
 
   public Patient(String firstName, String lastName, int age, String sex) {
     this.firstName = firstName;
@@ -52,11 +53,35 @@ public class Patient {
     return lastName;
   }
 
+  public int getAge() {
+    return age;
+  }
+  public String getSex() {
+    return sex;
+  }
+
   public Set<Hospital> getHospitals() {
     return registeredHospitals;
   }
 
-  public void registerHospital(Hospital hospital) {
-    this.registeredHospitals.add(hospital);
+  public void setAge(int age) {
+    this.age = age;
   }
+
+  public void setFirstName(String firString) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public void setSex(String sex) {
+
+    this.sex = sex;
+  }
+
+  // public void registerHospital(Hospital hospital) {
+  //   this.registeredHospitals.add(hospital);
+  // }
 }

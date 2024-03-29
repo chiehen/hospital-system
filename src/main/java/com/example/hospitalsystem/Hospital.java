@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,9 +21,9 @@ public class Hospital {
   private String name;
   private String address;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
-    name = "registration", 
+    name = "registration",
     joinColumns = @JoinColumn(name = "hospital_id"), 
     inverseJoinColumns = @JoinColumn(name = "patient_id"))
   private Set<Patient> registeredPatients = new HashSet<>();
@@ -53,12 +54,20 @@ public class Hospital {
     return address;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
   public Set<Patient> getPatients() {
     return registeredPatients;
   }
 
   public void addPatient(Patient patient) {
     this.registeredPatients.add(patient);
-    patient.registerHospital(this);
+    // patient.registerHospital(this);
   }
 }

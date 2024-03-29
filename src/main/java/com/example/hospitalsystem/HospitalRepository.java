@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface HospitalRepository extends CrudRepository<Hospital, Long> {
 
 
-  List<Hospital> findAllByRegisteredPatients(Patient patient);
+  List<Hospital> findAllByRegisteredPatients_Id(long id);
 }

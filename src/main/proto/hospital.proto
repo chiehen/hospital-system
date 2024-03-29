@@ -10,64 +10,70 @@ import "google/protobuf/wrappers.proto";
 package model;
 
 // Define the messages for Hospital and Patient entities
-message Hospital {
-    // Unique ID for the hospital
-    int32 id = 1;
-    // Name of the hospital
-    string name = 2;
-    // Address of the hospital
-    string address = 3;
-    // Any other relevant fields for the hospital
-    // ...
+message ID {
+    int64 id = 1;
 }
 
-// message Patient {
-//     // Unique ID for the patient
-//     int32 id = 1;
-//     // Name of the patient
-//     string name = 2;
-//     // Age of the patient
-//     int32 age = 3;
-//     // Any other relevant fields for the patient
-//     // ...
-// }
+
+message HospitalData {
+    string name = 1;
+    string address = 2;
+}
+
+message Hospital {
+    string name = 1;
+    string address = 2;
+    int64 id = 3;
+}
+message Hospitals {
+    repeated Hospital hospitals = 1;
+}
+
+message PatientData {
+    string firstName = 1;
+    string lastName = 2;
+    string sex = 3;
+    int32 age = 4;
+}
+
+message Patient {
+    // Name of the patient
+    string firstName = 1;
+    // Age of the patient
+    string lastName = 2;
+    string sex = 3;
+    int32 age = 4;
+    int64 id = 5;
+}
+
+message Patients {
+    repeated Patient patients = 1;
+}
 
 // Define the service for hospital operations
 service HospitalService {
     rpc FakeOp(google.protobuf.Int64Value) returns (google.protobuf.Int64Value);
     // Operations for hospitals
-    rpc CreateHospital(Hospital) returns (Hospital);
-    // rpc ModifyHospital(Hospital) returns (Hospital);
-    // rpc DeleteHospital(google.protobuf.Int64Value) returns (google.protobuf.Empty);
+    rpc CreateHospital(HospitalData) returns (ID);
+    rpc ModifyHospital(Hospital) returns (ID);
+    rpc DeleteHospital(ID) returns (ID);
+    rpc ListHospital(google.protobuf.Empty) returns (Hospitals);
 
     // // Operations for patients
-    // rpc CreatePatient(Patient) returns (Patient);
-    // rpc ModifyPatient(Patient) returns (Patient);
-    // rpc DeletePatient(google.protobuf.Int64Value) returns (google.protobuf.Empty);
+    rpc CreatePatient(PatientData) returns (ID);
+    rpc ModifyPatient(Patient) returns (ID);
+    rpc DeletePatient(ID) returns (ID);
 
     // // Operation to register a patient in a hospital
-    // rpc RegisterPatientInHospital(RegisterPatientRequest) returns (google.protobuf.Empty);
+    rpc RegisterPatientInHospital(RegisterPatientRequest) returns (google.protobuf.Empty);
 
     // // Operations to list patients and hospitals
-    // rpc ListPatientsInHospital(google.protobuf.Int64Value) returns (Patients);
-    // rpc ListHospitalsForPatient(google.protobuf.Int64Value) returns (Hospitals);
+    rpc ListPatientsInHospital(ID) returns (Patients);
+    rpc ListHospitalsForPatient(ID) returns (Hospitals);
 }
 
 // // Request message to register a patient in a hospital
-// message RegisterPatientRequest {
-//     // ID of the patient
-//     int32 patient_id = 1;
-//     // ID of the hospital
-//     int32 hospital_id = 2;
-// }
-
-
-// message Patients {
-//     // List of patients in the hospital
-//     repeated Patient patients = 1;
-// }
-
-// message Hospitals {
-//     // List of hospitals where the patient is registered
-//     repeated Hospital hospitals = 1;
-// }
+message RegisterPatientRequest {
+    int64 patient_id = 1;
+    int64 hospital_id = 2;
+}
