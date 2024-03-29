@@ -18,13 +18,16 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  implementation "io.grpc:grpc-netty:1.15.1"
+  // implementation "io.grpc:grpc-netty:1.15.1"
 
   implementation 'net.devh:grpc-spring-boot-starter:3.0.0.RELEASE' exclude group: 'io.grpc', module: 'grpc-netty-shaded' // For both
 	// implementation 'net.devh:grpc-spring-boot-starter:3.0.0.RELEASE'
 	implementation 'com.google.protobuf:protobuf-java:3.6.1'
-	implementation 'io.grpc:grpc-stub:1.15.1'
-	implementation 'io.grpc:grpc-protobuf:1.15.1'
+  runtimeOnly 'io.grpc:grpc-netty-shaded:1.62.2'
+  implementation 'io.grpc:grpc-protobuf:1.62.2'
+  implementation 'io.grpc:grpc-stub:1.62.2'
+	// implementation 'io.grpc:grpc-stub:1.15.1'
+	// implementation 'io.grpc:grpc-protobuf:1.15.1'
 	if (JavaVersion.current().isJava9Compatible()) {
     // Workaround for @javax.annotation.Generated
     // see: https://github.com/grpc/grpc-java/issues/3633
@@ -55,7 +58,7 @@ protobuf {
     // the identifier, which can be referred to in the "plugins"
     // container of the "generateProtoTasks" closure.
     grpc {
-      artifact = 'io.grpc:protoc-gen-grpc-java:1.15.1:osx-x86_64'
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.62.2:osx-x86_64'
     }
   }
   generateProtoTasks {
@@ -70,12 +73,3 @@ protobuf {
     }
   }
 }
-
-// sourceSets {
-//     main {
-//         // Include generated sources in the main source set
-//         java {
-//             srcDirs 'src/generated/java'
-//         }
-//     }
-// }
