@@ -71,7 +71,7 @@ public class HospitalService extends HospitalServiceGrpc.HospitalServiceImplBase
      */
     @Override
     public void deleteHospital(HospitalProto.ID request,
-            io.grpc.stub.StreamObserver<com.example.grpc.HospitalProto.ID> responseObserver) {
+            io.grpc.stub.StreamObserver<HospitalProto.ID> responseObserver) {
         logger.info(String.format("Delete hospital %1s", request.getId()));
 
         hRepository.deleteById(request.getId());
